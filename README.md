@@ -1,10 +1,10 @@
 # 🍽️ Quero Comida Hub
 
-## 📚 Tech Challenge 2 — Pós-graduação em Arquitetura e Desenvolvimento Java (FIAP)
+## 📚 Tech Challenge 2 - Pós-graduação em Arquitetura e Desenvolvimento Java - FIAP
 
-Backend para gestão de restaurantes e cardápios, construído do zero com **tipos de usuário**, **cadastro de restaurantes** e **itens de cardápio**, organizado sob os princípios de **Clean Architecture**.
+Backend robusto para gestão de restaurantes, itens de cardápio, usuários e tipos de usuários em uma plataforma de alimentação, organizado sob os princípios da **Arquitetura Limpa** (Clean Architecture).
 
-O sistema distingue dois perfis de usuário — **Cliente** e **Dono de Restaurante** — e garante que apenas donos possam gerenciar seus próprios restaurantes e cardápios.
+O sistema distingue dois perfis de usuário - **Cliente** e **Dono de Restaurante** - e garante que apenas donos possam gerenciar restaurantes e cardápios associados.
 
 ---
 
@@ -15,9 +15,9 @@ O sistema distingue dois perfis de usuário — **Cliente** e **Dono de Restaura
 | Linguagem | Java 21 (sealed classes, records) |
 | Framework | Spring Boot 3.5 |
 | Banco de dados | MySQL 8.4 |
-| Acesso a dados | Spring `JdbcClient` (sem ORM) |
+| Acesso a dados | Spring JdbcClient (sem ORM) |
 | Migrações | Flyway |
-| Documentação | SpringDoc OpenAPI (Swagger UI) |
+| Documentação | SpringDoc OpenAPI 2.8.6 (Swagger UI) |
 | Testes | JUnit 5, Mockito, AssertJ, Testcontainers, ArchUnit |
 | Cobertura | JaCoCo (mínimo de 80%) |
 | Containerização | Docker + Docker Compose |
@@ -26,14 +26,14 @@ O sistema distingue dois perfis de usuário — **Cliente** e **Dono de Restaura
 
 ## 🚀 Como executar
 
-**Pré-requisitos:** Docker e Docker Compose instalados. Java e Maven **não** são necessários localmente — o build e a execução acontecem dentro dos contêineres.
+**Pré-requisitos:** Docker e Docker Compose instalados. Java e Maven **não** são necessários localmente - a aplicação é construída e roda dentro de contêineres.
 
 ```bash
-# 1. Clonar o repositório
+# Clonar o repositório
 git clone https://github.com/lfboeff/querocomidahub-tc2
 cd querocomidahub
 
-# 2. Subir os contêineres (build + start)
+# Build e inicialização dos contêineres
 docker compose up --build
 ```
 
@@ -54,16 +54,16 @@ docker compose down
 docker compose down -v
 ```
 
-> As migrações Flyway e o *seed* inicial (tipos de usuário, usuários, restaurantes e itens de exemplo) rodam automaticamente na primeira inicialização.
+> Nota: as migrações Flyway e o *seed* inicial (tipos de usuário, usuários, restaurantes e itens de exemplo) rodam automaticamente na primeira inicialização.
 
 ---
 
 ## 🏛️ Arquitetura
 
-O projeto adota **Clean Architecture**, organizado em **quatro verticais de negócio** independentes:
+O projeto adota **Clean Architecture**, organizado em **quatro verticais de negócio**:
 
 ```
-usertype   →  tipos de usuário (Cliente, Dono de Restaurante, ...)
+usertype   →  tipos de usuário (cliente, dono de restaurante, entregador, ...)
 user       →  usuários e sua associação a um tipo
 restaurant →  restaurantes, com dono associado
 menuitem   →  itens de cardápio, aninhados sob um restaurante
@@ -73,7 +73,7 @@ Cada vertical é dividida em três camadas, com dependências apontando sempre *
 
 | Camada | Responsabilidade | Depende de |
 |---|---|---|
-| `domain/` | Entidades, regras de negócio, interfaces de gateway e exceções. Sem frameworks. | — (núcleo) |
+| `domain/` | Entidades, regras de negócio, interfaces de gateway e exceções. Sem frameworks. | - (núcleo) |
 | `application/` | Casos de uso, controllers de orquestração, DTOs e mappers. Sem detalhes de web ou persistência. | `domain` |
 | `infrastructure/` | Gateways JDBC, controllers REST, Swagger, configuração Spring e resolução de identidade. | `application`, `domain` |
 
@@ -105,7 +105,7 @@ As fronteiras entre camadas são verificadas automaticamente por **20 regras de 
 
 ### Autorização simulada via `X-User-Id`
 
-Endpoints que modificam restaurantes e cardápios exigem o header **`X-User-Id`**, que identifica o usuário chamador. O `UserIdentityResolver` resolve esse header para o usuário correspondente e as regras de negócio validam a permissão (ex.: apenas um Dono pode criar restaurantes; apenas o dono de um restaurante pode alterá-lo). Não há token/JWT nesta fase — é uma simulação de autenticação.
+Endpoints que modificam restaurantes e cardápios exigem o header **`X-User-Id`**, que identifica o usuário chamador. O `UserIdentityResolver` resolve esse header para o usuário correspondente e as regras de negócio validam a permissão (ex.: apenas um usuário com permissão de dono de restaurante pode criar restaurantes; apenas o dono de um restaurante pode alterá-lo).
 
 ---
 
@@ -113,7 +113,7 @@ Endpoints que modificam restaurantes e cardápios exigem o header **`X-User-Id`*
 
 Todos os endpoints usam o prefixo `/api/v1` e seguem a semântica REST. Respostas de erro seguem o padrão **RFC 7807** (ProblemDetail).
 
-### Tipos de Usuário — `/api/v1/user-types`
+### Tipos de Usuário - `/api/v1/user-types`
 
 | Método | Endpoint | Descrição |
 |---|---|---|
@@ -121,9 +121,9 @@ Todos os endpoints usam o prefixo `/api/v1` e seguem a semântica REST. Resposta
 | `GET` | `/user-types/{id}` | Busca um tipo por ID |
 | `POST` | `/user-types` | Cria um tipo de usuário |
 | `PUT` | `/user-types/{id}` | Atualiza um tipo (tipos de sistema são protegidos) |
-| `DELETE` | `/user-types/{id}` | Remove um tipo (bloqueado se estiver em uso) |
+| `DELETE` | `/user-types/{id}` | Remove um tipo (bloqueado se for de sistema ou estiver em uso com usuários) |
 
-### Usuários — `/api/v1/users`
+### Usuários - `/api/v1/users`
 
 | Método | Endpoint | Descrição |
 |---|---|---|
@@ -131,20 +131,20 @@ Todos os endpoints usam o prefixo `/api/v1` e seguem a semântica REST. Resposta
 | `GET` | `/users/{id}` | Busca um usuário por ID |
 | `POST` | `/users` | Cria um usuário associado a um tipo |
 | `PUT` | `/users/{id}` | Atualiza dados pessoais do usuário |
-| `DELETE` | `/users/{id}` | Remove um usuário (bloqueado se for dono de restaurantes) |
+| `DELETE` | `/users/{id}` | Remove um usuário (bloqueado se for atual dono de um ou mais restaurantes) |
 | `PATCH` | `/users/{id}/user-type` | Reatribui o tipo do usuário |
 
-### Restaurantes — `/api/v1/restaurants`
+### Restaurantes - `/api/v1/restaurants`
 
 | Método | Endpoint | Header | Descrição |
 |---|---|---|---|
 | `GET` | `/restaurants` | — | Lista todos os restaurantes |
 | `GET` | `/restaurants/{id}` | — | Busca um restaurante por ID |
 | `POST` | `/restaurants` | `X-User-Id` | Cria um restaurante (chamador deve poder gerenciar restaurantes) |
-| `PUT` | `/restaurants/{id}` | `X-User-Id` | Atualiza um restaurante (apenas o dono) |
-| `DELETE` | `/restaurants/{id}` | `X-User-Id` | Remove um restaurante (apenas o dono) |
+| `PUT` | `/restaurants/{id}` | `X-User-Id` | Atualiza um restaurante (apenas o dono tem permissão) |
+| `DELETE` | `/restaurants/{id}` | `X-User-Id` | Remove um restaurante (apenas o dono tem permissão) |
 
-### Itens de Cardápio — `/api/v1/restaurants/{restaurantId}/menu-items`
+### Itens de Cardápio - `/api/v1/restaurants/{restaurantId}/menu-items`
 
 | Método | Endpoint | Header | Descrição |
 |---|---|---|---|
@@ -168,9 +168,7 @@ postman/QueroComidaHub_TC2.postman_collection.json
 
 Organizada pelas quatro verticais, cada uma com pastas **Happy Path** e **Error Path**, cobrindo os cenários de sucesso e de erro (400, 401, 403, 404, 405, 409). Pré-configurada para `http://localhost:8080`. Compatível com Postman, Bruno e Insomnia.
 
-> **Coleção autossuficiente.** Os cenários de **Happy Path** criam seus próprios dados (`POST`), capturam o `id` gerado em variáveis de coleção e operam (`PUT`/`PATCH`/`DELETE`) sobre a entidade recém-criada — nunca sobre os registros de *seed*. Assim o *seed* permanece intacto e a coleção roda **de ponta a ponta numa única passada, em qualquer ordem**, sem necessidade de resetar o banco entre execuções. Os itens de **Error Path** usam IDs inexistentes ou dados inválidos e também são independentes.
->
-> Validação executável via [Newman](https://github.com/postmanlabs/newman): `npx newman run postman/QueroComidaHub_TC2.postman_collection.json` — 88 requisições, verdes contra o *seed* inicial.
+> **Coleção autossuficiente.** Os cenários de **Happy Path** criam seus próprios dados (`POST`), capturam o `id` gerado em variáveis de coleção e operam (`PUT`/`PATCH`/`DELETE`) sobre a entidade recém-criada. Assim, o *seed* permanece intacto e a coleção roda de ponta a ponta numa única passada sem necessidade de resetar o banco entre execuções. Os itens de **Error Path** usam IDs inexistentes ou dados inválidos e também são independentes.
 
 ---
 
@@ -185,9 +183,9 @@ Organizada pelas quatro verticais, cada uma com pastas **Happy Path** e **Error 
 ```
 
 - **Unitários:** domínio, use cases, controllers (`@WebMvcTest`), mappers.
-- **Integração (`*IT`):** gateways JDBC contra um MySQL real provisionado via **Testcontainers**.
+- **Integração (`*IT`):** gateways JDBC contra um banco MySQL real provisionado via **Testcontainers**.
 - **Arquitetura:** 20 regras ArchUnit validando as fronteiras entre camadas.
-- **Cobertura:** JaCoCo com limite mínimo de **80%**, verificado na fase `verify`.
+- **Cobertura:** JaCoCo com limite mínimo de **80%**.
 
 ---
 
@@ -196,14 +194,14 @@ Organizada pelas quatro verticais, cada uma com pastas **Happy Path** e **Error 
 ```
 querocomidahub/
 ├── src/main/java/br/com/fiap/querocomidahub/
-│   ├── usertype/         # vertical: tipos de usuário
-│   ├── user/             # vertical: usuários
-│   ├── restaurant/       # vertical: restaurantes
 │   ├── menuitem/         # vertical: itens de cardápio
-│   └── shared/           # logging, exceções, OpenAPI, X-User-Id
+│   ├── restaurant/       # vertical: restaurantes
+│   ├── shared/           # logging, exceções, OpenAPI, X-User-Id
+│   ├── user/             # vertical: usuários
+│   └── usertype/         # vertical: tipos de usuário
 ├── src/main/resources/
 │   └── db/migration/     # migrações Flyway (V1–V5)
-├── src/test/java/        # testes unitários, integração e arquitetura
+├── src/test/java/...     # testes unitários, integração e arquitetura
 ├── postman/              # coleção Postman
 ├── Dockerfile            # build multi-stage (Maven → JRE Alpine)
 ├── docker-compose.yml    # serviços app + db
@@ -218,4 +216,3 @@ querocomidahub/
 | Nome | RM |
 |---|---|
 | Luís Felipe Boeff | RM372311 |
-# querocomidahub-tc2
