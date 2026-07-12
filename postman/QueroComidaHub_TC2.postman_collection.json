@@ -1291,7 +1291,7 @@
               }
             },
             {
-              "name": "19 - Create - 400 Name Too Long (>100 chars)",
+              "name": "19 - Create - 400 Name Too Long (>255 chars)",
               "request": {
                 "method": "POST",
                 "header": [
@@ -1302,7 +1302,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n  \"email\": \"teste@email.com\",\n  \"address\": \"Rua Teste, 1\",\n  \"userTypeId\": 2\n}"
+                  "raw": "{\n  \"name\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n  \"email\": \"teste@email.com\",\n  \"address\": \"Rua Teste, 1\",\n  \"userTypeId\": 2\n}"
                 },
                 "url": {
                   "raw": "http://localhost:8080/api/v1/users",
@@ -2032,6 +2032,39 @@
                   ]
                 }
               }
+            },
+            {
+              "name": "12 - Create - 400 Name Too Long (>255 chars)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n  \"kitchenType\": \"Brasileira\",\n  \"address\": \"Rua Teste, 1\",\n  \"openingHours\": \"Seg-Sex 11h-22h\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/restaurants",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "restaurants"
+                  ]
+                }
+              }
             }
           ]
         },
@@ -2588,6 +2621,41 @@
               "request": {
                 "method": "DELETE",
                 "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/restaurants/1/menu-items",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "restaurants",
+                    "1",
+                    "menu-items"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "13 - Create - 400 Name Too Long (>255 chars)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n  \"description\": \"Descrição qualquer\",\n  \"price\": 29.9\n}"
+                },
                 "url": {
                   "raw": "http://localhost:8080/api/v1/restaurants/1/menu-items",
                   "protocol": "http",

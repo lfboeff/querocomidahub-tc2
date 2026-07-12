@@ -1,6 +1,6 @@
 CREATE TABLE restaurants (
     id               BIGINT NOT NULL AUTO_INCREMENT,
-    name             VARCHAR(150) NOT NULL,
+    name             VARCHAR(255) NOT NULL,
     address          VARCHAR(500) NOT NULL,
     kitchen_type     VARCHAR(80) NOT NULL,
     opening_hours    VARCHAR(200) NOT NULL,

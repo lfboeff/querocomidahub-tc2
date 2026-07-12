@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 public record RestaurantRequestJson(
         @Schema(description = "Name of the restaurant", example = "Pizzaria Bella Napoli",
                 requiredMode = Schema.RequiredMode.REQUIRED)
-        @NotBlank @Size(max = 150)
+        @NotBlank @Size(max = 255)
         String name,
 
         @Schema(description = "Postal address of the restaurant",

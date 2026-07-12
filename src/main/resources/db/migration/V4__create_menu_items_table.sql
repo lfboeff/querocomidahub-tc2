@@ -1,7 +1,7 @@
 CREATE TABLE menu_items (
     id               BIGINT NOT NULL AUTO_INCREMENT,
     restaurant_id    BIGINT NOT NULL,
-    name             VARCHAR(150) NOT NULL,
+    name             VARCHAR(255) NOT NULL,
     description      VARCHAR(500) NOT NULL,
     price            DECIMAL(10, 2) NOT NULL,
     dine_in_only     BOOLEAN NOT NULL DEFAULT FALSE,

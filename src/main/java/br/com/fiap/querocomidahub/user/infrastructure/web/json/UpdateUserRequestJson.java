@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 public record UpdateUserRequestJson(
         @Schema(description = "Full name of the user", example = "João da Silva",
                 requiredMode = Schema.RequiredMode.REQUIRED)
-        @NotBlank @Size(max = 100)
+        @NotBlank @Size(max = 255)
         String name,
 
         @Schema(description = "Email address of the user (must be unique)", example = "joao.silva@email.com",

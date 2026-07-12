@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public record MenuItemRequestJson(
         @Schema(description = "Name of the menu item", example = "Pizza Margherita",
                 requiredMode = Schema.RequiredMode.REQUIRED)
-        @NotBlank @Size(max = 150)
+        @NotBlank @Size(max = 255)
         String name,
 
         @Schema(description = "Detailed description of the menu item",
