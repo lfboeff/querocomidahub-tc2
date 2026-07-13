@@ -315,11 +315,7 @@
                   "script": {
                     "type": "text/javascript",
                     "exec": [
-                      "pm.test('201 Created', () => pm.response.to.have.status(201));",
-                      "const loc = pm.response.headers.get('Location');",
-                      "const id = loc.split('/').pop();",
-                      "pm.collectionVariables.set('inUseTypeId', id);",
-                      "console.log('inUseTypeId =', id);"
+                      "pm.test('201 Created', () => pm.response.to.have.status(201));"
                     ]
                   }
                 }
@@ -337,7 +333,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Entregador Fulano\",\n  \"email\": \"entregador.temp@email.com\",\n  \"address\": \"Rua Temp, 1 - São Paulo, SP\",\n  \"userTypeId\": {{inUseTypeId}}\n}"
+                  "raw": "{\n  \"name\": \"Entregador Fulano\",\n  \"email\": \"entregador.temp@email.com\",\n  \"address\": \"Rua Temp, 1 - São Paulo, SP\",\n  \"userTypeId\": 5\n}"
                 },
                 "url": {
                   "raw": "http://localhost:8080/api/v1/users",
@@ -359,11 +355,7 @@
                   "script": {
                     "type": "text/javascript",
                     "exec": [
-                      "pm.test('201 Created', () => pm.response.to.have.status(201));",
-                      "const loc = pm.response.headers.get('Location');",
-                      "const id = loc.split('/').pop();",
-                      "pm.collectionVariables.set('inUseUserId', id);",
-                      "console.log('inUseUserId =', id);"
+                      "pm.test('201 Created', () => pm.response.to.have.status(201));"
                     ]
                   }
                 }
@@ -375,7 +367,7 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/user-types/{{inUseTypeId}}",
+                  "raw": "http://localhost:8080/api/v1/user-types/5",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -385,7 +377,7 @@
                     "api",
                     "v1",
                     "user-types",
-                    "{{inUseTypeId}}"
+                    "5"
                   ]
                 }
               },
@@ -420,7 +412,7 @@
                   "raw": "{\n  \"userTypeId\": 2\n}"
                 },
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/users/{{inUseUserId}}/user-type",
+                  "raw": "http://localhost:8080/api/v1/users/5/user-type",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -430,7 +422,7 @@
                     "api",
                     "v1",
                     "users",
-                    "{{inUseUserId}}",
+                    "5",
                     "user-type"
                   ]
                 }
@@ -453,7 +445,7 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/user-types/{{inUseTypeId}}",
+                  "raw": "http://localhost:8080/api/v1/user-types/5",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -463,7 +455,7 @@
                     "api",
                     "v1",
                     "user-types",
-                    "{{inUseTypeId}}"
+                    "5"
                   ]
                 }
               },
@@ -671,8 +663,7 @@
                   "script": {
                     "type": "text/javascript",
                     "exec": [
-                      "pm.test('201 Created',()=>pm.response.to.have.status(201));",
-                      "pm.collectionVariables.set('typeId', pm.response.headers.get('Location').split('/').pop());"
+                      "pm.test('201 Created',()=>pm.response.to.have.status(201));"
                     ]
                   }
                 }
@@ -733,7 +724,7 @@
                   "raw": "{\n  \"name\": \"Entregador Parceiro\",\n  \"canManageRestaurants\": false\n}"
                 },
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/user-types/{{typeId}}",
+                  "raw": "http://localhost:8080/api/v1/user-types/4",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -743,7 +734,7 @@
                     "api",
                     "v1",
                     "user-types",
-                    "{{typeId}}"
+                    "4"
                   ]
                 }
               },
@@ -765,7 +756,7 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/user-types/{{typeId}}",
+                  "raw": "http://localhost:8080/api/v1/user-types/4",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -775,7 +766,7 @@
                     "api",
                     "v1",
                     "user-types",
-                    "{{typeId}}"
+                    "4"
                   ]
                 }
               },
@@ -1509,8 +1500,7 @@
                   "script": {
                     "type": "text/javascript",
                     "exec": [
-                      "pm.test('201 Created',()=>pm.response.to.have.status(201));",
-                      "pm.collectionVariables.set('userId', pm.response.headers.get('Location').split('/').pop());"
+                      "pm.test('201 Created',()=>pm.response.to.have.status(201));"
                     ]
                   }
                 }
@@ -1571,7 +1561,7 @@
                   "raw": "{\n  \"name\": \"Pedro Almeida Atualizado\",\n  \"email\": \"pedro.almeida@email.com\",\n  \"address\": \"Rua Nova, 456 - São Paulo, SP\"\n}"
                 },
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/users/{{userId}}",
+                  "raw": "http://localhost:8080/api/v1/users/4",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -1581,7 +1571,7 @@
                     "api",
                     "v1",
                     "users",
-                    "{{userId}}"
+                    "4"
                   ]
                 }
               },
@@ -1612,7 +1602,7 @@
                   "raw": "{\n  \"userTypeId\": 1\n}"
                 },
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/users/{{userId}}/user-type",
+                  "raw": "http://localhost:8080/api/v1/users/4/user-type",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -1622,7 +1612,7 @@
                     "api",
                     "v1",
                     "users",
-                    "{{userId}}",
+                    "4",
                     "user-type"
                   ]
                 }
@@ -1654,7 +1644,7 @@
                   "raw": "{\n  \"userTypeId\": 1\n}"
                 },
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/users/{{userId}}/user-type",
+                  "raw": "http://localhost:8080/api/v1/users/4/user-type",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -1664,7 +1654,7 @@
                     "api",
                     "v1",
                     "users",
-                    "{{userId}}",
+                    "4",
                     "user-type"
                   ]
                 }
@@ -1687,7 +1677,7 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/users/{{userId}}",
+                  "raw": "http://localhost:8080/api/v1/users/4",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -1697,7 +1687,7 @@
                     "api",
                     "v1",
                     "users",
-                    "{{userId}}"
+                    "4"
                   ]
                 }
               },
@@ -2172,8 +2162,7 @@
                   "script": {
                     "type": "text/javascript",
                     "exec": [
-                      "pm.test('201 Created',()=>pm.response.to.have.status(201));",
-                      "pm.collectionVariables.set('restId', pm.response.headers.get('Location').split('/').pop());"
+                      "pm.test('201 Created',()=>pm.response.to.have.status(201));"
                     ]
                   }
                 }
@@ -2198,7 +2187,7 @@
                   "raw": "{\n  \"name\": \"Cantina do Chef Atualizada\",\n  \"kitchenType\": \"Italiana\",\n  \"address\": \"Av. Paulista, 3000 - São Paulo, SP\",\n  \"openingHours\": \"Seg-Sex 11h-22h\"\n}"
                 },
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/restaurants/{{restId}}",
+                  "raw": "http://localhost:8080/api/v1/restaurants/3",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -2208,7 +2197,7 @@
                     "api",
                     "v1",
                     "restaurants",
-                    "{{restId}}"
+                    "3"
                   ]
                 }
               },
@@ -2235,7 +2224,7 @@
                   }
                 ],
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/restaurants/{{restId}}",
+                  "raw": "http://localhost:8080/api/v1/restaurants/3",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -2245,7 +2234,7 @@
                     "api",
                     "v1",
                     "restaurants",
-                    "{{restId}}"
+                    "3"
                   ]
                 }
               },
@@ -2786,8 +2775,7 @@
                   "script": {
                     "type": "text/javascript",
                     "exec": [
-                      "pm.test('201 Created',()=>pm.response.to.have.status(201));",
-                      "pm.collectionVariables.set('itemId', pm.response.headers.get('Location').split('/').pop());"
+                      "pm.test('201 Created',()=>pm.response.to.have.status(201));"
                     ]
                   }
                 }
@@ -2812,7 +2800,7 @@
                   "raw": "{\n  \"name\": \"Tiramisu Especial\",\n  \"description\": \"Prato de demonstração\",\n  \"price\": 29.9,\n  \"photoPath\": \"/images/demo.jpg\"\n}"
                 },
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/restaurants/1/menu-items/{{itemId}}",
+                  "raw": "http://localhost:8080/api/v1/restaurants/1/menu-items/5",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -2824,7 +2812,7 @@
                     "restaurants",
                     "1",
                     "menu-items",
-                    "{{itemId}}"
+                    "5"
                   ]
                 }
               },
@@ -2851,7 +2839,7 @@
                   }
                 ],
                 "url": {
-                  "raw": "http://localhost:8080/api/v1/restaurants/1/menu-items/{{itemId}}",
+                  "raw": "http://localhost:8080/api/v1/restaurants/1/menu-items/5",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -2863,7 +2851,7 @@
                     "restaurants",
                     "1",
                     "menu-items",
-                    "{{itemId}}"
+                    "5"
                   ]
                 }
               },

@@ -166,9 +166,7 @@ Uma coleção pronta para importação está disponível em:
 postman/QueroComidaHub_TC2.postman_collection.json
 ```
 
-Organizada pelas quatro verticais, cada uma com pastas **Happy Path** e **Error Path**, cobrindo os cenários de sucesso e de erro (400, 401, 403, 404, 405, 409). Pré-configurada para `http://localhost:8080`. Compatível com Postman, Bruno e Insomnia.
-
-> **Coleção autossuficiente.** Os cenários de **Happy Path** **leem** os registros de *seed* (`GET`), mas só **modificam** dados que eles mesmos criam: cada pasta cria seus próprios dados (`POST`), captura o `id` gerado em variáveis de coleção e opera (`PUT`/`PATCH`/`DELETE`) **apenas sobre a entidade recém-criada**. Assim o *seed* permanece intacto e a coleção roda **de ponta a ponta numa única passada** (na ordem das pastas), sem necessidade de resetar o banco entre execuções. Os itens de **Error Path** usam IDs inexistentes ou dados inválidos e são independentes entre si.
+Organizada pelas quatro verticais, cada uma com pastas **Happy Path** e **Error Path**, cobrindo os cenários de sucesso e de erro (400, 401, 403, 404, 405, 409). Pré-configurada para `http://localhost:8080`.
 
 ---
 
