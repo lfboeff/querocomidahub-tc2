@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @Tag(name = "Users", description = "User management endpoints")
-public interface UserApi {
+public interface IUserSwaggerDoc {
 
     @Operation(summary = "List all users",
             description = "Returns all users ordered by id.")

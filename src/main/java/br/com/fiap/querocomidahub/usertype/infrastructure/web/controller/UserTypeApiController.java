@@ -26,7 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/user-types")
-public class UserTypeApiController implements UserTypeApi {
+public class UserTypeApiController implements IUserTypeSwaggerDoc {
 
     private final UserTypeController userTypeController;
     private final ILoggerGateway logger;

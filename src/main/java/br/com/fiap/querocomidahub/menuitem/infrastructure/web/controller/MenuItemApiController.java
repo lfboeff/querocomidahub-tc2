@@ -29,7 +29,7 @@ import java.util.List;
 import static br.com.fiap.querocomidahub.shared.infrastructure.security.UserIdentityResolver.HEADER_USER_ID;
 
 @RestController
-public class MenuItemApiController implements MenuItemApi {
+public class MenuItemApiController implements IMenuItemSwaggerDoc {
 
     private final MenuItemController menuItemController;
     private final UserIdentityResolver userIdentityResolver;

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import java.util.List;
 
 @Tag(name = "Restaurants", description = "Restaurant management endpoints")
-public interface RestaurantApi {
+public interface IRestaurantSwaggerDoc {
 
     @Operation(summary = "List all restaurants",
             description = "Returns all restaurants ordered by id. Menu items are not embedded in the list — use GET /{id} to get menu items.")

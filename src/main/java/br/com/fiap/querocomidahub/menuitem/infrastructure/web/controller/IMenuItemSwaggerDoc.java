@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import java.util.List;
 
 @Tag(name = "Menu Items", description = "Menu item management endpoints")
-public interface MenuItemApi {
+public interface IMenuItemSwaggerDoc {
 
     @Operation(summary = "List all menu items of a restaurant",
             description = "Returns all menu items of the given restaurant ordered by id.")

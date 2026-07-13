@@ -31,7 +31,7 @@ import static br.com.fiap.querocomidahub.shared.infrastructure.security.UserIden
 
 @RestController
 @RequestMapping("/api/v1/restaurants")
-public class RestaurantApiController implements RestaurantApi {
+public class RestaurantApiController implements IRestaurantSwaggerDoc {
 
     private final RestaurantController restaurantController;
     private final UserIdentityResolver userIdentityResolver;

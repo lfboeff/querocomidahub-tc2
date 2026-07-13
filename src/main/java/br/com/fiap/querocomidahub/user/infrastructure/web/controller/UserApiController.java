@@ -31,7 +31,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
-public class UserApiController implements UserApi {
+public class UserApiController implements IUserSwaggerDoc {
 
     private final UserController userController;
     private final ILoggerGateway logger;

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @Tag(name = "User Types", description = "User type management endpoints")
-public interface UserTypeApi {
+public interface IUserTypeSwaggerDoc {
 
     // -------------------------------------------------------------------------
     // GET /api/v1/user-types
