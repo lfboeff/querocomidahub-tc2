@@ -213,6 +213,6 @@ querocomidahub/
 
 ## 👤 Autor
 
-| Nome | RM |
-|---|---|
-| Luís Felipe Boeff | RM372311 |
+| Nome              | RM | Turma  |
+|-------------------|---|--------|
+| Luís Felipe Boeff | RM372311 | 12ADJT |
